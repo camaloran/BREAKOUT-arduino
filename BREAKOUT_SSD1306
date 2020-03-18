@@ -97,15 +97,16 @@ void setup() {
   display.dim(true);
 
   // Clear the buffer
-  display.clearDisplay();
+  display.clearDisplay();                                             // Limpiar datos a enviar a la pantalla
 
-  display.drawRect(0, 0, display.width(), display.height(), WHITE);
-  display.drawRect(0, 0, 113, display.height(), WHITE);
+  display.drawRect(0, 0, display.width(), display.height(), WHITE);   // Dibujar rectángulo contorno
+  display.drawRect(0, 0, 113, display.height(), WHITE);               // Dibujar rectángulo tablero
 
-  display.display();
+  display.display();                                                  // Enviar datos a la pantalla
+  
   for (int j = 0; j < 5; j++) {
     for (int i = 0; i < 5; i++) {
-      display.fillRect(i * 22 + 2, j * 9 + 2, 21, 8, WHITE);
+      display.fillRect(i * 22 + 2, j * 9 + 2, 21, 8, WHITE);          // Aparecer tablero en horizontal
       display.display();
       delay(50);
     }
@@ -114,7 +115,7 @@ void setup() {
 
   for (int i = 0; i < 5; i++) {
     for (int j = 0; j < 5; j++) {
-      display.fillRect(i * 22 + 2, j * 9 + 2, 21, 8, BLACK);
+      display.fillRect(i * 22 + 2, j * 9 + 2, 21, 8, BLACK);          // Desaparecer tablero en vertical
       display.display();
       delay(50);
     }
@@ -158,11 +159,11 @@ void rebotes() {
   for (int i = 0; i < 5; i++) {
     for (int j = 0; j < 5; j++) {
       if(tablero[j][i] == 1) {
-//        if(bolaX > i * 22 + 2-1 && bolaY > j * 9 + 2 && bolaY < j * 9 + 2 + 8  ||  bolaX < i * 22 + 2 + 21 && bolaY > j * 9 + 2 && bolaY < j * 9 + 2 + 8) {
+//        if(bolaX > i * 22 + 2-1 && bolaY > j * 9 + 2 && bolaY < j * 9 + 2 + 8  ||  bolaX < i * 22 + 2 + 21 && bolaY > j * 9 + 2 && bolaY < j * 9 + 2 + 8) {   // Rebote lateral bloques
 //          bolaDirX = -bolaDirX;
 //          tablero[j][i] = 0;
 //        }
-        if(bolaX > i*22+2-1 && bolaX < i*22+2+20+1 && bolaY == j * 9 + 2-1 || bolaX > i*22+2-1 && bolaX < i*22+2+20+1 && bolaY == i * 9 + 2 +7+1) {
+        if(bolaX > i*22+2-1 && bolaX < i*22+2+20+1 && bolaY == j * 9 + 2-1 || bolaX > i*22+2-1 && bolaX < i*22+2+20+1 && bolaY == i * 9 + 2 +7+1) {             // Rebote inferior y superior bloques
           bolaDirY = -bolaDirY;
           tablero[j][i] = 0;
           tone(zumb, 240, 50);
@@ -180,15 +181,15 @@ void actBarra() {
 }
 
 void actBola() {
-  PbolaX = bolaX;
-  PbolaY = bolaY;
-  bolaX += bolaDirX;
-  bolaY += bolaDirY;
+  PbolaX = bolaX;                             // Guardando coordenada X anterior de la bola
+  PbolaY = bolaY;                             // Guardando coordenada Y anterior de la bola
+  bolaX += bolaDirX;                          // Actualizando coordenada X de la bola
+  bolaY += bolaDirY;                          // Actualizando coordenada Y de la bola
 
   rebotes();
   
-  display.drawPixel(PbolaX, PbolaY, BLACK);
-  display.drawPixel(bolaX, bolaY, WHITE);
+  display.drawPixel(PbolaX, PbolaY, BLACK);   // Borrar posición anterior de la bola
+  display.drawPixel(bolaX, bolaY, WHITE);     // Mostrar posición nueva de la bola
 //  display.display();
 }
 
@@ -196,9 +197,9 @@ void mostrar() {
   for (int j = 0; j < 5; j++) {
     for (int i = 0; i < 5; i++) {
       if (tablero[j][i] == 0) {
-        display.fillRect(i * 22 + 2, j * 9 + 2, 21, 8, BLACK);
+        display.fillRect(i * 22 + 2, j * 9 + 2, 21, 8, BLACK);    // Si valor de tablero es 0 "mostrar" bloque negro
       } else {
-        display.fillRect(i * 22 + 2, j * 9 + 2, 21, 8, WHITE);
+        display.fillRect(i * 22 + 2, j * 9 + 2, 21, 8, WHITE);    // Si valor de tablero es 1 mostrar bloque blanco
       }
     }
   }
