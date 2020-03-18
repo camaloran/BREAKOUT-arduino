@@ -82,9 +82,12 @@ int PbolaX = 55;                  // Coordenada X anterior de la bola
 int PbolaY = 55;                  // Coordenada Y anterior de la bola
 
 
+const int zumb = 6;
 
 void setup() {
   Serial.begin(9600);
+
+  pinMode(zumb, OUTPUT);
 
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
   if (!display.begin(SSD1306_SWITCHCAPVCC)) {
@@ -135,22 +138,22 @@ void loop() {
 void rebotes() {
   if (bolaX <= 1 || bolaX >= separador - 1) {   // Rebotes laterales
     bolaDirX = -bolaDirX;
-    tone(6, 500, 50);
+    tone(zumb, 500, 50);
   }
   if(bolaY <= 2) {  //Rebote superior
     bolaDirY = -bolaDirY;
-    tone(6, 500, 50);
+    tone(zumb, 500, 50);
   }
 //  if (bolaY == 47) {    // Rebote parte inferior de bloques SOLO PRUEBA
 //    bolaDirY = -bolaDirY;
 //  }
   if(bolaX > posBarra - barraMLong && bolaX < posBarra + barraMLong && bolaY == display.height() - 5) {   // Rebote barra
     bolaDirY = -bolaDirY;
-    tone(6, 600, 50);
+    tone(zumb, 600, 50);
   }
   if(bolaY == display.height() - 2) {   // Rebote suelo SOLO PRUEBA
     bolaDirY = -bolaDirY;
-    tone(6, 100, 50);
+    tone(zumb, 100, 50);
   }
   for (int i = 0; i < 5; i++) {
     for (int j = 0; j < 5; j++) {
@@ -162,7 +165,7 @@ void rebotes() {
         if(bolaX > i*22+2-1 && bolaX < i*22+2+20+1 && bolaY == j * 9 + 2-1 || bolaX > i*22+2-1 && bolaX < i*22+2+20+1 && bolaY == i * 9 + 2 +7+1) {
           bolaDirY = -bolaDirY;
           tablero[j][i] = 0;
-          tone(6, 240, 50);
+          tone(zumb, 240, 50);
         }
       }
     }
